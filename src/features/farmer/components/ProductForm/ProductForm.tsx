@@ -124,7 +124,11 @@ export function ProductForm({ onSuccess, onCancel, initialData }: ProductFormPro
       }
     } catch (error) {
       console.error('Product form submission error:', error);
-      setSubmitError('Failed to create product. Please try again.');
+      const message =
+        error instanceof Error && error.message.startsWith('PLAN_LIMIT:')
+          ? error.message.replace(/^PLAN_LIMIT:\s*/, '').trim()
+          : 'Failed to create product. Please try again.';
+      setSubmitError(message);
       // TODO: Log error for debugging
       // console.error('Failed to create product:', appError);
     } finally {

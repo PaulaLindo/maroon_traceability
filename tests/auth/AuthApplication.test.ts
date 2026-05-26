@@ -30,7 +30,7 @@ jest.mock('@/src/features/auth/adapters/HybridAuthAdapter', () => ({
   })),
 }));
 
-jest.mock('../../../core/registry/AdapterRegistry', () => ({
+jest.mock('@/src/core/registry/AdapterRegistry', () => ({
   adapterRegistry: {
     registerAdapter: jest.fn(),
     getHealthStatus: jest.fn(),
@@ -38,14 +38,14 @@ jest.mock('../../../core/registry/AdapterRegistry', () => ({
   },
 }));
 
-jest.mock('../../../core/infrastructure/HybridModeManager', () => ({
+jest.mock('@/src/core/infrastructure/HybridModeManager', () => ({
   hybridModeManager: {
     getMode: jest.fn(() => 'hybrid'),
     setMode: jest.fn(),
   },
 }));
 
-jest.mock('../../../core/infrastructure/HealthMonitor', () => ({
+jest.mock('@/src/core/infrastructure/HealthMonitor', () => ({
   healthMonitor: {
     subscribe: jest.fn(),
     startMonitoring: jest.fn(),

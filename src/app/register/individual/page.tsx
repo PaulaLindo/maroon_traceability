@@ -136,6 +136,7 @@ export default function IndividualRegistrationPage() {
         farmSize: formData.farmSize,
         livestockType: formData.livestockType,
         registrationType: 'individual',
+        pricingTier: 'individual',
       },
     };
 

@@ -8,8 +8,14 @@ declare const console: {
 };
 
 import React, { createContext, useContext, useState, ReactNode, useMemo } from 'react';
+import { useUser } from '@/contexts/userContext';
 import { createBlockchainRecord as addProduct } from '@/lib/blockchain'; // incrementVerification is unused
 import { INITIAL_METRICS } from '@/lib/constants';
+import {
+  getMonthlyRecordCreates,
+  getMonthlyRecordQuotaForUser,
+  incrementMonthlyRecordCreates,
+} from '@/lib/pricingLimits';
 import { BlockchainRecord } from '@/types/blockchain';
 import { BusinessMetrics } from '@/types/metrics';
 import { CreateProduct, Product, ProductCategory, ProductStatus } from '@/types/product';
@@ -116,6 +122,7 @@ const INITIAL_RECORDS: BlockchainRecord[] = [
 ];
 
 export function ProductProvider({ children }: { children: ReactNode }) {
+  const { currentUser } = useUser();
   const [blockchainRecords, setBlockchainRecords] = useState<BlockchainRecord[]>(INITIAL_RECORDS);
   const [businessMetrics, setBusinessMetrics] = useState<BusinessMetrics>(INITIAL_METRICS);
   const [selectedProduct, setSelectedProduct] = useState<BlockchainRecord | null>(null);
@@ -235,9 +242,28 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   };
 
   const addProductToBlockchain = async (product: CreateProduct, farmerName?: string) => {
+    const subject = currentUser;
+    if (subject?.role === 'farmer') {
+      const quota = getMonthlyRecordQuotaForUser(subject);
+      if (quota.maxRecordsPerMonth !== null) {
+        const used = getMonthlyRecordCreates(subject.id);
+        if (used >= quota.maxRecordsPerMonth) {
+          throw new Error(
+            `PLAN_LIMIT: Your plan allows ${quota.maxRecordsPerMonth} new traceability records per month. Contact sales to upgrade or wait until next month.`,
+          );
+        }
+      }
+    }
+
     const newRecord = addProduct(product, blockchainRecords.length, farmerName);
 
     setBlockchainRecords((prev) => [...prev, newRecord]);
+    if (subject?.role === 'farmer') {
+      const quotaAfterAdd = getMonthlyRecordQuotaForUser(subject);
+      if (quotaAfterAdd.maxRecordsPerMonth !== null) {
+        incrementMonthlyRecordCreates(subject.id);
+      }
+    }
     setBusinessMetrics((prev) => ({
       ...prev,
       totalTransactions: prev.totalTransactions + 1,

@@ -38,7 +38,8 @@ export const DEMO_USERS: User[] = [
       address: '123 Farm Road',
       city: 'Stellenbosch',
       province: 'Western Cape',
-      postalCode: '7600'
+      postalCode: '7600',
+      pricingTier: 'individual',
     }
   },
   {
@@ -65,7 +66,8 @@ export const DEMO_USERS: User[] = [
       address: '456 Quality Avenue',
       city: 'Pretoria',
       province: 'Gauteng',
-      postalCode: '0001'
+      postalCode: '0001',
+      pricingTier: 'enterprise',
     }
   },
   {
@@ -99,7 +101,8 @@ export const DEMO_USERS: User[] = [
       address: '789 Market Street',
       city: 'Johannesburg',
       province: 'Gauteng',
-      postalCode: '2000'
+      postalCode: '2000',
+      pricingTier: 'professional_commercial',
     }
   },
   {
@@ -126,7 +129,8 @@ export const DEMO_USERS: User[] = [
       address: '321 Transport Way',
       city: 'Durban',
       province: 'KwaZulu-Natal',
-      postalCode: '4001'
+      postalCode: '4001',
+      pricingTier: 'professional_smme',
     }
   },
   {
@@ -160,7 +164,8 @@ export const DEMO_USERS: User[] = [
       address: '654 Packaging Boulevard',
       city: 'Cape Town',
       province: 'Western Cape',
-      postalCode: '8000'
+      postalCode: '8000',
+      pricingTier: 'professional_smme',
     }
   },
   {
@@ -187,34 +192,8 @@ export const DEMO_USERS: User[] = [
       address: '987 Consumer Lane',
       city: 'Port Elizabeth',
       province: 'Eastern Cape',
-      postalCode: '6001'
-    }
-  },
-  {
-    id: 'user_7',
-    name: 'Lisa Government',
-    email: 'lisa@gov.za',
-    role: 'government',
-    phone: '+27 12 555 0707',
-    address: {
-      street: '147 Government Plaza',
-      city: 'Pretoria',
-      state: 'Gauteng',
-      postalCode: '0002',
-      formatted: '147 Government Plaza, Pretoria, Gauteng 0002'
-    },
-    isActive: true,
-    createdAt: '2024-01-25T10:00:00Z',
-    updatedAt: '2024-04-20T11:00:00Z',
-    lastLoginAt: '2024-04-22T09:00:00Z',
-    emailVerified: true,
-    metadata: {
-      bio: 'Government official overseeing agricultural policy and food safety regulations.',
-      phone: '+27 12 555 0707',
-      address: '147 Government Plaza',
-      city: 'Pretoria',
-      province: 'Gauteng',
-      postalCode: '0002'
+      postalCode: '6001',
+      pricingTier: 'individual',
     }
   },
   {
@@ -241,7 +220,8 @@ export const DEMO_USERS: User[] = [
       address: '258 Security Street',
       city: 'Pretoria',
       province: 'Gauteng',
-      postalCode: '0003'
+      postalCode: '0003',
+      operationsNoBilling: true,
     }
   },
 ];

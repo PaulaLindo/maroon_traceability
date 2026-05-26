@@ -116,9 +116,13 @@ jest.mock('@/src/features/registration/services/supabaseClient', () => {
       select: jest.fn(() => ({
         eq: jest.fn(() => ({
           single: jest.fn(() => Promise.resolve({ data: null, error: null })),
+          maybeSingle: jest.fn(() => Promise.resolve({ data: null, error: null })),
         })),
-        data: null,
-        error: null,
+        limit: jest.fn(() =>
+          Promise.resolve({ data: [], error: { code: 'PGRST116', message: 'relation does not exist' } }),
+        ),
+        maybeSingle: jest.fn(() => Promise.resolve({ data: null, error: null })),
+        single: jest.fn(() => Promise.resolve({ data: null, error: null })),
       })),
       insert: jest.fn(() => Promise.resolve({ data: null, error: null })),
       update: jest.fn(() => Promise.resolve({ data: null, error: null })),

@@ -1,10 +1,12 @@
 'use client';
 
-import { Users, Shield, Database, Headphones, Zap, Clock, Award, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Users, Shield, Database, Headphones, Zap, Clock, Award, ArrowRight, ArrowLeft, Check, ExternalLink } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { FinanceAppLink } from '@/components/layout/FinanceAppLink';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { getFinanceAppUrl, isFinanceAppConfigured } from '@/lib/financeAppUrl';
 
 export default function GetStartedPage() {
   const router = useRouter();
@@ -82,6 +84,7 @@ export default function GetStartedPage() {
       features: [
         { icon: Users, text: 'Unlimited Users', included: true },
         { icon: Shield, text: 'GRAP & SITA Aligned', included: true },
+        { icon: Check, text: 'Varydian GRAP financial reporting — 6 roles, period lock, audit pack, asset register', included: true },
         { icon: Database, text: 'Unlimited Records', included: true },
         { icon: Headphones, text: '24/7 Dedicated Manager', included: true },
         { icon: Zap, text: 'Custom ERP Integration', included: true },
@@ -89,6 +92,7 @@ export default function GetStartedPage() {
       ],
       cta: 'Contact Sales',
       ctaAction: () => router.push('/contact-sales'),
+      financeCta: true,
       popular: false,
     },
   ];
@@ -228,11 +232,34 @@ export default function GetStartedPage() {
                       ? 'bg-blue-600 hover:bg-blue-700 text-white'
                       : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
                   }`}
-                  onClick={plan.ctaAction}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    plan.ctaAction();
+                  }}
                 >
                   {plan.cta}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
+
+                {'financeCta' in plan && plan.financeCta && isFinanceAppConfigured() && (
+                  <Button
+                    variant="outline"
+                    className="w-full mt-2 border-blue-300 text-blue-700 hover:bg-blue-50"
+                    asChild
+                    title="Separate secure app; use your Varydian account."
+                  >
+                    <a
+                      href={getFinanceAppUrl('/login')}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Launch Varydian financial reporting (opens in new tab)"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Launch Varydian
+                      <ExternalLink className="ml-2 h-4 w-4" aria-hidden />
+                    </a>
+                  </Button>
+                )}
               </Card>
             ))}
           </div>

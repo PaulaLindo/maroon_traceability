@@ -81,6 +81,13 @@ Maroon Traceability is a comprehensive supply chain transparency platform that e
    cp .env.example .env.local
    # Configure your Supabase credentials in .env.local
    ```
+   
+   **Varydian (GRAP financial reporting)** — add to `.env.local` for cross-app links (footer, pricing, government dashboard):
+   ```env
+   NEXT_PUBLIC_FINANCE_APP_URL=https://varydian-financial-reporting.onrender.com
+   ```
+   Use your real Render URL if different; **no trailing slash**.  
+   **`MAROON_APP_URL` is not used by Maroon** — set that on the Varydian app only so it can link back here. See [`docs/cross-app-varydian-maroon.md`](docs/cross-app-varydian-maroon.md).
 
 4. **Database setup**
    ```bash

@@ -49,7 +49,10 @@ export default function ContactSalesPage() {
           </Button>
           <div className="text-center">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Contact Sales</h1>
-            <p className="text-gray-600">Enterprise solutions for Government & SOEs</p>
+            <p className="text-gray-600">
+              Enterprise solutions for Government &amp; SOEs. Government plans include Maroon
+              traceability plus <strong>Varydian</strong> for GRAP-compliant financial statements.
+            </p>
             <div className="mt-2 inline-flex items-center px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">
               Custom Quote · Tailored Solutions
             </div>

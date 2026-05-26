@@ -3,7 +3,7 @@
 
 import { QrCode, Search, Users, Globe, Smartphone } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DashboardLayout } from '@/components/dashboard';
 import { ErrorBoundary } from '@/components/errorBoundary';
 import { QRScanner } from '@/components/qr';
@@ -13,6 +13,16 @@ import { getAssetPath } from '@/lib/utils/assetPath';
 export default function PublicAccessPage() {
   const router = useRouter();
   const [scanResult, setScanResult] = useState<string>('');
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || window.location.hash !== '#qr-scanner') {
+      return undefined;
+    }
+    const tid = window.setTimeout(() => {
+      document.getElementById('qr-scanner')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 280);
+    return () => window.clearTimeout(tid);
+  }, []);
 
   const handleScanSuccess = (data: string) => {
     setScanResult(data);

@@ -42,8 +42,11 @@ export default function LoginPage() {
         switchUser(user.id);
         // Use router for proper navigation and wait a bit for context to update
         await new Promise(resolve => setTimeout(resolve, 150));
-        // Redirect public role to marketplace instead of /public (which doesn't exist)
-        router.push(role === 'public' ? '/marketplace' : `/${role}`);
+        if (role === 'public') {
+          router.push('/marketplace');
+        } else {
+          router.push(`/${role}`);
+        }
       } else {
         // Fallback if user not found
         router.push('/marketplace');
@@ -97,7 +100,7 @@ export default function LoginPage() {
             logistics: 'Track and manage product shipments and delivery logistics',
             packaging: 'Handle product packaging, processing, and batch management',
             retailer: 'Sell products on marketplace and manage your e-commerce store',
-            saps: 'Perform roadside inspections and asset recovery operations',
+            saps: 'SAPS operations workspace (inspections, recovery, reports). No billing tier. SAPS-specific QR features will ship later, separate from Public Access.',
             public: 'Browse marketplace and view complete product traceability',
           }).map(([role, description]) => (
             <div
@@ -150,7 +153,7 @@ export default function LoginPage() {
         <div className="mt-8 sm:mt-10 lg:mt-12 text-center">
           <div className="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full">
             <span className="text-xs sm:text-sm text-blue-700 font-medium">
-              🔒 Demo Mode - Select any role to explore the platform
+              🔒 Demo Mode — Government access is for registered accounts only. Select a demo role to explore.
             </span>
           </div>
         </div>

@@ -3,6 +3,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { ErrorBoundary } from '@/components/errorBoundary';
+import { SiteFooter } from '@/components/layout/SiteFooter';
 import { EventLogsProvider } from '@/contexts/eventLogsContext';
 import { ProductProvider } from '@/contexts/productContext';
 import { SearchProvider } from '@/contexts/search-context';
@@ -73,6 +74,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
                 <main className="container mx-auto px-4 pt-20 pb-8">
                   {children}
                 </main>
+                <SiteFooter />
               </SearchProvider>
             </EventLogsProvider>
           </ProductProvider>

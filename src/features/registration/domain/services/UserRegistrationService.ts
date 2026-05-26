@@ -337,29 +337,29 @@ export class UserRegistrationService {
     switch (user.subscriptionInfo?.plan) {
     case 'basic':
       return {
-        maxProducts: 10,
-        maxTransactions: 50,
+        maxProducts: 5,
+        maxTransactions: 5,
         maxStorage: 100, // MB
         features: ['basic_support', 'profile_visibility'],
       };
     case 'premium':
       return {
         maxProducts: 100,
-        maxTransactions: 500,
+        maxTransactions: 100,
         maxStorage: 1000, // MB
         features: ['basic_support', 'profile_visibility', 'advanced_analytics', 'priority_support'],
       };
     case 'enterprise':
       return {
-        maxProducts: 1000,
-        maxTransactions: 5000,
-        maxStorage: 10000, // MB
+        maxProducts: 999_999,
+        maxTransactions: 999_999,
+        maxStorage: 10_000, // MB
         features: ['basic_support', 'profile_visibility', 'advanced_analytics', 'priority_support', 'custom_integrations', 'api_access'],
       };
     default:
       return {
-        maxProducts: 10,
-        maxTransactions: 50,
+        maxProducts: 5,
+        maxTransactions: 5,
         maxStorage: 100,
         features: ['basic_support', 'profile_visibility'],
       };

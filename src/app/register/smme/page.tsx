@@ -161,6 +161,7 @@ export default function SMMERegistrationPage() {
         numberOfMembers: formData.numberOfMembers,
         businessType: formData.businessType,
         registrationType: 'smme',
+        pricingTier: 'professional_smme',
         plan: 'professional',
       },
     };

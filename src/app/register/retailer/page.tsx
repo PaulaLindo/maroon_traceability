@@ -137,6 +137,7 @@ export default function RetailerRegistrationPage() {
         postalCode: formData.postalCode,
         country: formData.country,
         registrationType: 'retailer',
+        pricingTier: 'professional_smme',
         plan: 'professional',
       },
     };

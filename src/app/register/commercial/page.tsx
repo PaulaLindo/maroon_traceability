@@ -181,6 +181,7 @@ export default function CommercialRegistrationPage() {
         annualRevenue: formData.annualRevenue,
         businessType: formData.businessType,
         registrationType: 'commercial',
+        pricingTier: 'professional_commercial',
         plan: 'professional',
       },
     };
