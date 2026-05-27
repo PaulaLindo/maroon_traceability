@@ -10,7 +10,8 @@ import type {
   UniversalUser,
   RegistrationData,
 } from '../../../core/types/adapter';
-import type { User } from '@/types/types';
+import type { User, UserRole } from '@/types/types';
+import { USER_ROLES } from '@/types/types';
 import { supabase, isSupabaseAvailable } from '../../registration/services/supabaseClient';
 
 /**
@@ -31,6 +32,55 @@ function handlePostgrestError(error: any): string | null {
   
   // Handle other errors
   return error.message || 'Unknown error';
+}
+
+function toUserRole(role: unknown): UserRole {
+  const value = typeof role === 'string' ? role : 'public';
+  return USER_ROLES.includes(value as UserRole) ? (value as UserRole) : 'public';
+}
+
+/** Map `users` table row (snake_case) for app User / profile UI */
+function mapUsersTableRow(row: Record<string, unknown> | null): User | null {
+  if (!row) {
+    return null;
+  }
+
+  const street = (row.address as string) || '';
+  const city = (row.city as string) || '';
+  const province = (row.province as string) || '';
+  const postalCode = (row.postal_code as string) || '';
+  const additionalData = (row.additional_data as Record<string, unknown>) || {};
+
+  return {
+    id: row.id as string,
+    email: row.email as string,
+    name: row.name as string,
+    role: toUserRole(row.role),
+    phone: (row.phone as string) || '',
+    address:
+      street || city || province || postalCode
+        ? {
+            street,
+            city,
+            state: province,
+            postalCode,
+            formatted: [street, city, province, postalCode].filter(Boolean).join(', '),
+          }
+        : undefined,
+    isActive: row.is_active !== false,
+    createdAt: (row.created_at as string) || new Date().toISOString(),
+    updatedAt: (row.updated_at as string) || new Date().toISOString(),
+    lastLoginAt: (row.last_login_at as string) || new Date().toISOString(),
+    emailVerified: row.email_verified === true,
+    metadata: {
+      phone: (row.phone as string) || '',
+      address: street,
+      city,
+      province,
+      postalCode,
+      ...additionalData,
+    },
+  };
 }
 
 /**
@@ -164,38 +214,21 @@ export class RealAuthAdapter implements AuthAdapter {
         }
       }
 
-      // Create User from Supabase data
-      const authUser: User = {
+      const mappedProfile = mapUsersTableRow(
+        (userProfile ?? profile) as Record<string, unknown> | null,
+      );
+
+      const authUser: User = mappedProfile ?? {
         id: data.user.id,
         email: data.user.email || '',
-        name: userProfile?.name || data.user.user_metadata?.name || data.user.email?.split('@')[0] || 'User',
-        role: userProfile?.role || data.user.user_metadata?.role || 'public',
-        // Map database fields to Address object
-        address: userProfile?.address ? {
-          street: userProfile.address || '',
-          city: userProfile.city || '',
-          state: userProfile.province || '',
-          postalCode: userProfile.postal_code || '',
-          formatted: `${userProfile.address || ''}, ${userProfile.city || ''}, ${userProfile.province || ''} ${userProfile.postal_code || ''}`
-        } : undefined,
-        // Use database phone field directly
-        phone: userProfile?.phone || '',
-        isActive: userProfile?.isActive ?? true,
-        createdAt: userProfile?.createdAt || data.user.created_at,
-        updatedAt: userProfile?.updatedAt || data.user.updated_at,
+        name: data.user.user_metadata?.name || data.user.email?.split('@')[0] || 'User',
+        role: toUserRole(data.user.user_metadata?.role),
+        isActive: true,
+        createdAt: data.user.created_at,
+        updatedAt: data.user.updated_at,
         lastLoginAt: new Date().toISOString(),
-        emailVerified: data.user.email_confirmed_at ? true : false,
-        // Add metadata for profile screen compatibility with all database fields
-        metadata: {
-          // Direct database fields
-          phone: userProfile?.phone || '',
-          address: userProfile?.address || '',
-          city: userProfile?.city || '',
-          province: userProfile?.province || '',
-          postalCode: userProfile?.postal_code || '',
-          // Additional fields from database additional_data
-          ...(userProfile as any)?.additional_data || {},
-        },
+        emailVerified: Boolean(data.user.email_confirmed_at),
+        metadata: { ...(data.user.user_metadata as Record<string, unknown>) },
       };
 
       // Normalize to UniversalUser with tracking

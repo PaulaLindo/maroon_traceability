@@ -9,6 +9,7 @@ import type { AuthAdapter, RegistrationData } from '@/core/types/adapter';
 import { MockAuthAdapter } from '@/features/auth/adapters/MockAuthAdapter';
 import { RealAuthAdapter } from '@/features/auth/adapters/RealAuthAdapter';
 import { DualAuthService } from '@/features/auth/application/DualAuthService';
+import { enrichUserFromRegistration } from '@/lib/enrichUserFromRegistration';
 import type { User, UniversalUser, UserRole } from '@/types';
 import { toUniversalUser } from '@/types';
 
@@ -147,7 +148,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
       if (realAdapter.isAvailable) {
         const loginResult = await realAdapter.login(data.email, data.password);
         if (loginResult.success && loginResult.data) {
-          setUser(loginResult.data);
+          setUser(enrichUserFromRegistration(loginResult.data, data));
           return true;
         }
       }
@@ -162,7 +163,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
         return false;
       }
 
-      setUser(universalUser);
+      setUser(enrichUserFromRegistration(universalUser, data));
       return true;
     } catch (error) {
       console.error('Registration failed:', error);
