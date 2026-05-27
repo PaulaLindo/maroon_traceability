@@ -26,7 +26,7 @@ export const DEMO_USERS: User[] = [
       bio: 'Passionate organic farmer with 10 years of experience in sustainable agriculture.',
       farmSize: '50',
       farmName: 'Green Valley Farm',
-      livestockType: 'None',
+      livestockType: 'cattle',
       companyName: '',
       registrationNumber: '',
       taxNumber: '',

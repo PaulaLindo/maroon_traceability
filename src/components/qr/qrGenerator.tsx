@@ -1,9 +1,15 @@
 // src/components/qr/QRGenerator.tsx
 'use client';
 
-import { Download, Share2, Copy, Check } from 'lucide-react';
+import { Download, Share2, Copy, Check, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
 import { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
+import {
+  DEMO_GOLDEN_PRODUCT_ID,
+  buildDemoQrPayload,
+  getPublicTracePath,
+} from '@/constants/demoGoldenPath';
 
 interface QRGeneratorProps {
   productId?: string;
@@ -15,41 +21,29 @@ interface QRGeneratorProps {
 }
 
 export function QRGenerator({
-  productId = '',
+  productId: productIdProp = '',
   productName = '',
   farmer = '',
   location = '',
   onGenerate,
   mockMode = true,
 }: QRGeneratorProps) {
+  const productId = productIdProp.trim() || DEMO_GOLDEN_PRODUCT_ID;
   const [qrData, setQrData] = useState<string>('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
 
   const generateQRData = useCallback(() => {
-    if (!productId.trim()) {
-      return '';
-    }
-
-    // Create structured QR data for the product
-    const qrContent = {
-      id: productId,
-      name: productName,
-      farmer: farmer,
-      location: location,
-      timestamp: new Date().toISOString(),
-      source: 'maroon-traceability',
-    };
-
-    return JSON.stringify(qrContent);
+    return buildDemoQrPayload({
+      productId,
+      productName: productName || 'Grass-Fed Beef',
+      farmer: farmer || 'Karoo Cattle Co.',
+      location: location || 'Graaff-Reinet, Eastern Cape',
+    });
   }, [productId, productName, farmer, location]);
 
   const handleGenerate = useCallback(async () => {
-    if (!productId.trim()) {
-      return;
-    }
-
     setIsGenerating(true);
 
     // Simulate QR generation delay
@@ -145,10 +139,16 @@ export function QRGenerator({
             <input
               type="text"
               value={productId}
-              onChange={(_e) => setQrData('')} // Clear QR data when input changes
-              placeholder="e.g., PRD-2024-001"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 focus:scale-105"
+              readOnly
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-700"
+              title="Golden-path demo product ID"
             />
+            <p className="text-xs text-gray-500 mt-1">
+              Demo passport links to{' '}
+              <Link href={getPublicTracePath(productId)} className="text-blue-600 underline">
+                public trace {productId}
+              </Link>
+            </p>
           </div>
 
           <div>
@@ -196,7 +196,7 @@ export function QRGenerator({
         {/* Generate Button */}
         <Button
           onClick={handleGenerate}
-          disabled={!productId.trim() || isGenerating}
+          disabled={isGenerating}
           className="w-full bg-green-600 hover:bg-green-700"
         >
           {isGenerating ? 'Generating...' : 'Generate QR Code'}
@@ -228,6 +228,13 @@ export function QRGenerator({
                 {qrData}
               </p>
             </div>
+
+            <Button variant="outline" size="sm" className="w-full" asChild>
+              <Link href={getPublicTracePath(productId)}>
+                <ExternalLink className="h-3 w-3 mr-2" />
+                Open buyer passport (trace page)
+              </Link>
+            </Button>
 
             {/* Action Buttons */}
             <div className="grid grid-cols-3 gap-2 transition-all duration-200">

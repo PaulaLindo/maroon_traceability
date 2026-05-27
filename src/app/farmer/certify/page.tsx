@@ -14,6 +14,7 @@ import { Label } from '@/components/ui/label';
 import { useUser } from '@/contexts/userContext';
 import { productCertificationDocs } from '@/lib/documentTypes';
 import { textColors, commonColors } from '@/lib/theme/colors';
+import { DEMO_GOLDEN_PRODUCT_ID } from '@/constants/demoGoldenPath';
 import { ProductCategory } from '@/types/product';
 
 
@@ -334,10 +335,10 @@ export default function CertifyProductPage() {
         {/* QR Generator Section */}
         <Card className="mt-8">
           <QRGenerator
-            productId={formData.productName ? `PRD-${Date.now()}` : ''}
-            productName={formData.productName}
-            farmer={currentUser?.name || ''}
-            location={formData.batchNumber || ''}
+            productId={DEMO_GOLDEN_PRODUCT_ID}
+            productName={formData.productName || 'Grass-Fed Beef'}
+            farmer={currentUser?.name || 'Karoo Cattle Co.'}
+            location={formData.batchNumber || 'Graaff-Reinet, Eastern Cape'}
             onGenerate={(qrData) => {
               console.log('QR Generated for product:', qrData);
             }}

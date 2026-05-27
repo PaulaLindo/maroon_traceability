@@ -76,7 +76,9 @@ export const FEATURE_ADAPTER_CONFIGS: Record<string, Record<string, AdapterConfi
           { email: 'farmer@demo.com', password: 'farmer123', role: 'farmer' },
           { email: 'inspector@demo.com', password: 'inspector123', role: 'inspector' },
           { email: 'logistics@demo.com', password: 'logistics123', role: 'logistics' },
+          { email: 'packaging@demo.com', password: 'packaging123', role: 'packaging' },
           { email: 'retailer@demo.com', password: 'retailer123', role: 'retailer' },
+          { email: 'saps@demo.com', password: 'saps123', role: 'saps' },
         ],
         sessionTimeout: 3600000, // 1 hour
       },

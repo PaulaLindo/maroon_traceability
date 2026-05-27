@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { RegistrationSuccessPanel } from '@/components/registration/RegistrationSuccessPanel';
+import { getRoleDashboardPath, saveRegistrationLead } from '@/lib/registrationLeads';
 import { useUser } from '@/src/contexts/userContext';
 import { RegistrationValidation, getFieldClassName, getCheckboxClassName } from '@/lib/validation/registrationValidation';
 
@@ -64,6 +66,7 @@ export default function CommercialRegistrationPage() {
   const { register, loading, user } = useUser();
   const [error, setError] = useState<string | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
+  const [dashboardPath, setDashboardPath] = useState('/farmer');
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   // Step validation functions
@@ -188,19 +191,18 @@ export default function CommercialRegistrationPage() {
 
     const success = await register(registrationData);
     if (success) {
+      const path = getRoleDashboardPath(formData.role);
+      saveRegistrationLead({
+        email: formData.email,
+        name: formData.contactPerson,
+        role: formData.role,
+        tier: 'Commercial Farmers (Professional)',
+        registrationType: 'commercial',
+        phone: formData.phone,
+        companyName: formData.companyName,
+      });
+      setDashboardPath(path);
       setIsRegistered(true);
-      // Redirect to role-based dashboard instead of verification
-      const roleDashboardMap: Record<string, string> = {
-        farmer: '/farmer',
-        inspector: '/inspector',
-        logistics: '/logistics',
-        packaging: '/packaging',
-        retailer: '/retailer',
-        public: '/public',
-      };
-      
-      const dashboardPath = roleDashboardMap[formData.role] || '/farmer';
-      router.push(dashboardPath);
     } else {
       setError('Registration failed. Please try again.');
     }
@@ -236,14 +238,14 @@ export default function CommercialRegistrationPage() {
             </div>
           )}
 
-          {/* Success Display */}
-          {isRegistered && (
-            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-md flex items-center">
-              <Check className="h-5 w-5 text-green-500 mr-2" />
-              <p className="text-sm text-green-800">Registration successful! Please check your email for verification.</p>
-            </div>
-          )}
-
+          {isRegistered ? (
+            <RegistrationSuccessPanel
+              tierLabel="Commercial Farmers (Professional)"
+              email={formData.email}
+              dashboardPath={dashboardPath}
+              onContinue={() => router.push(dashboardPath)}
+            />
+          ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
             {step === 1 && (
               <div className="space-y-6">
@@ -673,6 +675,7 @@ export default function CommercialRegistrationPage() {
               </div>
             )}
           </form>
+          )}
         </Card>
 
         {/* Benefits Section */}

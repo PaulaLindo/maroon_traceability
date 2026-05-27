@@ -10,13 +10,14 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { buildDemoQrPayload, DEMO_GOLDEN_PRODUCT_ID } from '@/constants/demoGoldenPath';
 import { useUser } from '@/contexts/userContext';
 
 
 export default function QRGenerationPage() {
   const { currentUser } = useUser();
   const router = useRouter();
-  const [selectedProduct, setSelectedProduct] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState(DEMO_GOLDEN_PRODUCT_ID);
   const [batchCode, setBatchCode] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [generatedQRs, setGeneratedQRs] = useState<Array<{id: string, data: string, productName: string, batchCode: string}>>([]);
@@ -47,9 +48,9 @@ export default function QRGenerationPage() {
 
   // Mock products for selection
   const products = [
+    { id: DEMO_GOLDEN_PRODUCT_ID, name: 'Grass-Fed Beef (demo golden path)', batchCode: 'BATCH-BLK003-KAROO' },
     { id: 'PRD-2024-001', name: 'Organic Apples Premium', batchCode: 'BATCH-2024-CAR-STL-ABC' },
     { id: 'PRD-2024-002', name: 'Fresh Pears Vacuum Sealed', batchCode: 'BATCH-2024-VAC-STL-DEF' },
-    { id: 'PRD-2024-003', name: 'Mixed Citrus Bulk', batchCode: 'BATCH-2024-BUL-STL-GHI' },
   ];
 
   const handleGenerateQR = () => {
@@ -65,9 +66,18 @@ export default function QRGenerationPage() {
     // Generate QR codes
     const newQRs = [];
     for (let i = 0; i < quantity; i++) {
+      const productId =
+        product.id === DEMO_GOLDEN_PRODUCT_ID ? DEMO_GOLDEN_PRODUCT_ID : product.id;
       newQRs.push({
         id: `qr-${Date.now()}-${i}`,
-        data: `QR_${product.batchCode}_${i + 1}_${Date.now()}`,
+        data:
+          productId === DEMO_GOLDEN_PRODUCT_ID
+            ? buildDemoQrPayload({
+                productId: DEMO_GOLDEN_PRODUCT_ID,
+                productName: product.name,
+                location: batchCode || product.batchCode,
+              })
+            : `QR_${product.batchCode}_${i + 1}_${Date.now()}`,
         productName: product.name,
         batchCode: batchCode,
       });

@@ -82,7 +82,7 @@ Maroon Traceability is a comprehensive supply chain transparency platform that e
    # Configure your Supabase credentials in .env.local
    ```
    
-   **Varydian (GRAP financial reporting)** — add to `.env.local` for cross-app links (footer, pricing, government dashboard):
+   **Varydian (GRAP financial reporting)** — add to `.env.local` for cross-app links (pricing / enterprise CTA and government dashboard when configured):
    ```env
    NEXT_PUBLIC_FINANCE_APP_URL=https://varydian-financial-reporting.onrender.com
    ```
@@ -104,6 +104,37 @@ Maroon Traceability is a comprehensive supply chain transparency platform that e
 
 6. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
+
+## Client demos
+
+This repository is a **demonstration prototype** for stakeholder walkthroughs—not every feature is production-hardened yet. For scope, gaps, and roadmap, see **[`docs/demo-alignment-and-roadmap.md`](docs/demo-alignment-and-roadmap.md)**.
+
+### Golden path (≈15 minutes)
+
+1. Open **`/intro`** → **Start Your Digital Kraal! - Free** → **`/get-started`** (pricing).
+2. **Quick demo login** at **`/login`** — pick a role card (no password), **or** sign in at **`/auth/login`** with password accounts below.
+3. As **farmer**: certify a product or open **`/farmer/certify`** → generate QR (links to **`BLK003`**).
+4. Open **public passport**: [`/public-access/trace/BLK003`](http://localhost:3000/public-access/trace/BLK003) — cattle timeline (tag, vaccination, transit).
+5. As **SAPS** (`/login` → saps, or `saps@demo.com`): **`/saps/inspections`** → **Sample: Green** / **Sample: Red**.
+
+**Stable demo product ID:** `BLK003` (Grass-Fed Beef, Karoo Cattle Co.)
+
+### Demo accounts
+
+| Access | Email | Password | Role |
+|--------|-------|----------|------|
+| Password login (`/auth/login`) | `farmer@demo.com` | `farmer123` | Farmer |
+| | `inspector@demo.com` | `inspector123` | Inspector |
+| | `logistics@demo.com` | `logistics123` | Logistics |
+| | `packaging@demo.com` | `packaging123` | Packaging |
+| | `retailer@demo.com` | `retailer123` | Retailer |
+| | `saps@demo.com` | `saps123` | SAPS (STU pilot) |
+| | `admin@demo.com` | `admin123` | Admin |
+| Role picker (`/login`) | — | — | One-click per role (uses seeded demo users) |
+
+**SAPS demo scans:** `MAROON-BLK003-VERIFIED` (green) · `MAROON-STOLEN-FLAGGED` (red)
+
+**Registration:** Forms save leads to `localStorage` key `maroon_registration_leads` and show a success panel before continuing to the dashboard.
 
 ## Usage
 

@@ -5,8 +5,10 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { useUser } from '@/src/contexts/userContext';
+import { RegistrationSuccessPanel } from '@/components/registration/RegistrationSuccessPanel';
+import { getRoleDashboardPath, saveRegistrationLead } from '@/lib/registrationLeads';
 import { RegistrationValidation, getFieldClassName, getCheckboxClassName } from '@/lib/validation/registrationValidation';
+import { useUser } from '@/src/contexts/userContext';
 
 export default function IndividualRegistrationPage() {
   const router = useRouter();
@@ -48,6 +50,7 @@ export default function IndividualRegistrationPage() {
   const { register, loading, user } = useUser();
   const [error, setError] = useState<string | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
+  const [dashboardPath, setDashboardPath] = useState('/farmer');
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const validateForm = (): boolean => {
@@ -142,19 +145,17 @@ export default function IndividualRegistrationPage() {
 
     const success = await register(registrationData);
     if (success) {
+      const path = getRoleDashboardPath(formData.role);
+      saveRegistrationLead({
+        email: formData.email,
+        name: `${formData.firstName} ${formData.lastName}`,
+        role: formData.role,
+        tier: 'Individual Farmer (Free)',
+        registrationType: 'individual',
+        phone: formData.phone,
+      });
+      setDashboardPath(path);
       setIsRegistered(true);
-      // Redirect to role-based dashboard instead of verification
-      const roleDashboardMap: Record<string, string> = {
-        farmer: '/farmer',
-        inspector: '/inspector',
-        logistics: '/logistics',
-        packaging: '/packaging',
-        retailer: '/retailer',
-        public: '/public',
-      };
-      
-      const dashboardPath = roleDashboardMap[formData.role] || '/farmer';
-      router.push(dashboardPath);
     } else {
       setError('Registration failed. Please try again.');
     }
@@ -187,14 +188,14 @@ export default function IndividualRegistrationPage() {
             </div>
           )}
 
-          {/* Success Display */}
-          {isRegistered && (
-            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-md flex items-center">
-              <Check className="h-5 w-5 text-green-500 mr-2" />
-              <p className="text-sm text-green-800">Registration successful! Please check your email for verification.</p>
-            </div>
-          )}
-
+          {isRegistered ? (
+            <RegistrationSuccessPanel
+              tierLabel="Individual Farmer (Free)"
+              email={formData.email}
+              dashboardPath={dashboardPath}
+              onContinue={() => router.push(dashboardPath)}
+            />
+          ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
             {step === 1 && (
               <div className="space-y-6">
@@ -543,6 +544,7 @@ export default function IndividualRegistrationPage() {
               </div>
             )}
           </form>
+          )}
         </Card>
 
         {/* Benefits Section */}

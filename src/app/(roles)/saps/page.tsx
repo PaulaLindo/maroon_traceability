@@ -4,6 +4,7 @@ import { Shield, Search, AlertTriangle, FileText, MapPin, Activity } from 'lucid
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { DashboardLayoutUnified as DashboardLayout } from '@/components/dashboard/DashboardLayout';
+import { SapsPilotBanner } from '@/components/demo/SapsPilotBanner';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useUser } from '@/contexts/userContext';
@@ -98,10 +99,9 @@ export default function SAPSPage() {
   ];
 
   return (
-    <DashboardLayout
-      description="Roadside Inspections & Asset Recovery Portal"
-    >
+    <DashboardLayout description="Roadside Inspections & Asset Recovery Portal (KZN pilot demo)">
       <div className="space-y-6">
+        <SapsPilotBanner />
         {/* Hero Section */}
         <div className="bg-gradient-to-r from-blue-900 to-gray-800 rounded-2xl p-4 sm:p-8 text-white relative">
           <div className="text-center">

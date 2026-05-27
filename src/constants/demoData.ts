@@ -49,7 +49,7 @@ export const INITIAL_BLOCKCHAIN_RECORDS: BlockchainRecord[] = [
     location: 'Graaff-Reinet, Eastern Cape',
     harvestDate: '2025-09-12',
     certifications: ['Organic', 'Animal Welfare Approved', 'Sustainable'],
-    batchSize: '250kg',
+    batchSize: '12 head / 250kg',
     blockHash: '0x8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9e',
     timestamp: new Date('2025-09-12T10:20:00Z').getTime(),
     status: 'Certified',

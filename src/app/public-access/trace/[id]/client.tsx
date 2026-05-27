@@ -7,23 +7,10 @@ import React, { useEffect, useState } from 'react';
 import { DashboardLayout } from '@/components/dashboard';
 import { ErrorBoundary } from '@/components/errorBoundary';
 import { Button } from '@/components/ui/button';
+import { getDemoProduct, getDemoTraceEvents, type PublicTraceEvent } from '@/lib/demoTraceData';
 import { formatDateTime } from '@/lib/utils';
 import { getAssetPath } from '@/lib/utils/assetPath';
-
-
-interface PublicTraceEvent {
-  id: string;
-  productId: string;
-  type: string;
-  actor: string;
-  actorRole: string;
-  timestamp: string;
-  location: string;
-  notes: string;
-  photos: string[];
-  syncStatus: string;
-  data: Record<string, unknown>;
-}
+import { DEMO_GOLDEN_PRODUCT_ID } from '@/constants/demoGoldenPath';
 
 const EVENT_CONFIG: Record<string, { icon: string; label: string; description: string }> = {
   planting: { icon: '🌱', label: 'Planting', description: 'Seeds planted' },
@@ -65,137 +52,25 @@ export default function PublicTraceClient() {
       setShareUrl(window.location.href);
     }
 
-    // Simulate loading product data
+    const productId = (params.id as string) || DEMO_GOLDEN_PRODUCT_ID;
     setTimeout(() => {
-      const productId = params.id as string;
-      const mockProduct = {
-        id: productId,
-        productName: productId === 'BLK001' ? 'Organic Apples' :
-          productId === 'BLK002' ? 'Free-Range Eggs' :
-            productId === 'BLK003' ? 'Grass-Fed Beef' :
-              productId === 'BLK004' ? 'Fresh Spinach' : 'Product',
-        description: 'High-quality product from our certified farms, grown with sustainable practices and verified for quality and safety.',
-        category: productId === 'BLK001' ? 'Fruits' :
-          productId === 'BLK002' ? 'Poultry' :
-            productId === 'BLK003' ? 'Beef' :
-              productId === 'BLK004' ? 'Vegetables' : 'Other',
-        farmer: productId === 'BLK001' ? 'Green Valley Farm' :
-          productId === 'BLK002' ? 'Sunrise Poultry' :
-            productId === 'BLK003' ? 'Karoo Cattle Co.' :
-              productId === 'BLK004' ? 'Leafy Greens Farm' : 'Local Farm',
-        farmerAddress: '0x742d35Cc6634C0532925a3b8D1750B87B02B6C71',
-        location: productId === 'BLK001' ? 'Stellenbosch, Western Cape' :
-          productId === 'BLK002' ? 'Robertson, Western Cape' :
-            productId === 'BLK003' ? 'Graaff-Reinet, Eastern Cape' :
-              productId === 'BLK004' ? 'Paarl, Western Cape' : 'South Africa',
-        harvestDate: '2025-09-10',
-        certifications: ['Organic', 'Fair Trade', 'Non-GMO'],
-        batchSize: '500kg',
-        blockHash: '0x4f3c2a1b8e7d6c5a9b8e7f6d5c4a3b2c1d0e9f8a',
-        timestamp: new Date('2025-09-10T08:30:00Z').getTime(),
-        txHash: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
-        verified: true,
-        status: 'Certified',
-        transactionFee: 0.002,
-        verifications: 3,
-      };
-
-      const mockEvents: PublicTraceEvent[] = [
-        {
-          id: 'evt1',
-          productId: productId,
-          type: 'planting',
-          actor: 'John Farmer',
-          actorRole: 'farmer',
-          timestamp: '2025-07-01T09:00:00Z',
-          location: 'Field A, Local Farm',
-          notes: 'Planted with organic seeds and sustainable farming practices',
-          photos: [],
-          syncStatus: 'synced',
-          data: {},
-        },
-        {
-          id: 'evt2',
-          productId: productId,
-          type: 'growth',
-          actor: 'John Farmer',
-          actorRole: 'farmer',
-          timestamp: '2025-08-15T10:30:00Z',
-          location: 'Field A, Local Farm',
-          notes: 'Healthy growth observed, no pests detected',
-          photos: [],
-          syncStatus: 'synced',
-          data: {},
-        },
-        {
-          id: 'evt3',
-          productId: productId,
-          type: 'harvest',
-          actor: 'John Farmer',
-          actorRole: 'farmer',
-          timestamp: '2025-09-10T08:30:00Z',
-          location: 'Field A, Local Farm',
-          notes: 'Harvested at peak freshness, all quality standards met',
-          photos: [],
-          syncStatus: 'synced',
-          data: {},
-        },
-        {
-          id: 'evt4',
-          productId: productId,
-          type: 'quality-inspection',
-          actor: 'Inspector Jane',
-          actorRole: 'inspector',
-          timestamp: '2025-09-10T14:00:00Z',
-          location: 'Local Farm',
-          notes: 'Passed all quality checks. Grade A+ quality.',
-          photos: [],
-          syncStatus: 'synced',
-          data: {},
-        },
-        {
-          id: 'evt5',
-          productId: productId,
-          type: 'collection',
-          actor: 'Swift Logistics',
-          actorRole: 'logistics',
-          timestamp: '2025-09-11T06:00:00Z',
-          location: 'Local Farm',
-          notes: 'Collected for transport to packaging facility',
-          photos: [],
-          syncStatus: 'synced',
-          data: {},
-        },
-        {
-          id: 'evt6',
-          productId: productId,
-          type: 'packaging',
-          actor: 'Packaging Co',
-          actorRole: 'packager',
-          timestamp: '2025-09-11T10:00:00Z',
-          location: 'Packaging Facility',
-          notes: 'Packaged in certified materials, batch codes applied',
-          photos: [],
-          syncStatus: 'synced',
-          data: {},
-        },
-        {
-          id: 'evt7',
-          productId: productId,
-          type: 'delivery',
-          actor: 'Fresh Market',
-          actorRole: 'retailer',
-          timestamp: '2025-09-12T09:00:00Z',
-          location: 'Fresh Market',
-          notes: 'Delivered to retail location, ready for consumer purchase',
-          photos: [],
-          syncStatus: 'synced',
-          data: {},
-        },
-      ];
-
-      setProduct(mockProduct);
-      setEvents(mockEvents);
+      const demoProduct = getDemoProduct(productId);
+      setProduct({
+        id: demoProduct.id,
+        productName: demoProduct.productName,
+        description: demoProduct.description,
+        category: demoProduct.category,
+        farmer: demoProduct.farmer,
+        location: demoProduct.location,
+        harvestDate: demoProduct.harvestDate,
+        certifications: demoProduct.certifications,
+        status: demoProduct.status,
+        batchSize: demoProduct.batchSize,
+        blockHash: demoProduct.blockHash,
+        txHash: demoProduct.txHash,
+        verifications: demoProduct.verifications,
+      });
+      setEvents(getDemoTraceEvents(productId));
       setLoading(false);
     }, 800);
   }, [params.id]);

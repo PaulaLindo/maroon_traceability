@@ -55,7 +55,7 @@ export function ProductForm({ onSuccess, onCancel, initialData }: ProductFormPro
     defaultValues: {
       name: initialData?.name || '',
       description: initialData?.description || '',
-      category: initialData?.category || ProductCategory.FRUITS,
+      category: initialData?.category || ProductCategory.BEEF,
       location: initialData?.location || '',
       harvestDate: initialData?.harvestDate || '',
       batchSize: initialData?.batchSize || '',

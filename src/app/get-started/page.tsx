@@ -170,8 +170,11 @@ export default function GetStartedPage() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
             Intelligence for the Agri-Food Value Chain
           </h1>
-          <p className="text-xl sm:text-2xl text-gray-600 mb-8 sm:mb-12 max-w-4xl mx-auto">
+          <p className="text-xl sm:text-2xl text-gray-600 mb-4 sm:mb-6 max-w-4xl mx-auto">
             From rural traceability to national compliance. Select the digital framework that powers your operational integrity.
+          </p>
+          <p className="text-base text-gray-600 mb-8 sm:mb-12 max-w-3xl mx-auto">
+            Your digital kraal starts free on the Individual tier. Paid plans below add users, audit trails, and integrations when you scale.
           </p>
         </div>
       </div>

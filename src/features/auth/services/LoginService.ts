@@ -76,6 +76,48 @@ const DEMO_ACCOUNTS = {
       emailVerified: true,
     },
   },
+  logistics: {
+    email: 'logistics@demo.com',
+    password: 'logistics123',
+    userData: {
+      id: 'demo-logistics-001',
+      name: 'Demo Logistics',
+      email: 'logistics@demo.com',
+      role: 'logistics' as const,
+      isActive: true,
+      createdAt: '2024-01-01T00:00:00Z',
+      updatedAt: '2024-01-01T00:00:00Z',
+      emailVerified: true,
+    },
+  },
+  packaging: {
+    email: 'packaging@demo.com',
+    password: 'packaging123',
+    userData: {
+      id: 'demo-packaging-001',
+      name: 'Demo Packaging',
+      email: 'packaging@demo.com',
+      role: 'packaging' as const,
+      isActive: true,
+      createdAt: '2024-01-01T00:00:00Z',
+      updatedAt: '2024-01-01T00:00:00Z',
+      emailVerified: true,
+    },
+  },
+  saps: {
+    email: 'saps@demo.com',
+    password: 'saps123',
+    userData: {
+      id: 'demo-saps-001',
+      name: 'Demo SAPS Officer',
+      email: 'saps@demo.com',
+      role: 'saps' as const,
+      isActive: true,
+      createdAt: '2024-01-01T00:00:00Z',
+      updatedAt: '2024-01-01T00:00:00Z',
+      emailVerified: true,
+    },
+  },
 } as const;
 
 type DemoAccountKey = keyof typeof DEMO_ACCOUNTS;

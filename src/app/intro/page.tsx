@@ -296,11 +296,22 @@ export default function IntroPage() {
 
           <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-xl sm:rounded-2xl p-6 sm:p-8 lg:p-12 text-center">
             <p className="text-lg sm:text-xl lg:text-2xl text-gray-800 mb-4 sm:mb-6 lg:mb-8 font-medium">
-              We don't offer subscriptions.
+              Start your digital kraal free — no subscription required to begin.
             </p>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto mb-4">
               We turn quiet wealth of your agricultural assets into an untouchable legacy,
-              making sure what you've built is never lost, never stolen, and never undervalued.
+              making sure what you&apos;ve built is never lost, never stolen, and never undervalued.
+            </p>
+            <p className="text-sm sm:text-base text-gray-600 max-w-3xl mx-auto">
+              Commercial, cooperative, and government tiers with advanced compliance are on our{' '}
+              <button
+                type="button"
+                className="text-blue-600 font-semibold underline hover:text-blue-800"
+                onClick={() => router.push('/get-started')}
+              >
+                pricing page
+              </button>
+              — choose what fits when you&apos;re ready to scale.
             </p>
           </div>
         </div>
@@ -405,7 +416,7 @@ export default function IntroPage() {
             className="bg-white text-orange-600 hover:bg-gray-100 px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 text-sm sm:text-base lg:text-lg font-semibold"
             onClick={() => router.push('/get-started')}
           >
-            Start Your Digital Agri-Asset Today
+            Start Your Digital Agri-Asset Book Today
             <ArrowRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
           </Button>
         </div>

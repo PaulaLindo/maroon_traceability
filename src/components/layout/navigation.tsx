@@ -9,10 +9,8 @@ import { RolePermissionsService } from '@/components/services/rolePermissionsSer
 import { Button } from '@/components/ui/button';
 import { DEMO_USERS } from '@/constants/users';
 import { useUser } from '@/contexts/userContext';
-import { FinanceAppLink } from '@/components/layout/FinanceAppLink';
 import { getAssetPath } from '@/lib/utils/assetPath';
-import { isFinanceAppConfigured } from '@/lib/financeAppUrl';
-import { UserRole, BaseUser } from '@/types';
+import { UserRole } from '@/types';
 
 
 interface NavigationItem {
@@ -155,17 +153,6 @@ export function Navigation() {
               ))}
             </div>
 
-            {isFinanceAppConfigured() && (
-              <FinanceAppLink
-                path="/login"
-                className="hidden lg:inline-flex text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline"
-                title="Separate secure app; use your Varydian account."
-                showExternalIcon
-              >
-                Financial reporting
-              </FinanceAppLink>
-            )}
-
             {/* Desktop Logout Button */}
             <div className="hidden lg:block">
               <Button
@@ -222,17 +209,6 @@ export function Navigation() {
                         {item.name}
                       </Link>
                     ))}
-
-                    {isFinanceAppConfigured() && (
-                      <FinanceAppLink
-                        path="/login"
-                        className="w-full text-left px-4 py-2 text-sm text-blue-600 hover:bg-gray-100 flex items-center"
-                        title="Separate secure app; use your Varydian account."
-                        showExternalIcon
-                      >
-                        Financial reporting (Varydian)
-                      </FinanceAppLink>
-                    )}
 
                     {/* Logout Section */}
                     <div className="border-t border-gray-200 mt-2 pt-2">
