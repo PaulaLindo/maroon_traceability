@@ -89,6 +89,14 @@ Maroon Traceability is a comprehensive supply chain transparency platform that e
    Use your real Render URL if different; **no trailing slash**.  
    **`MAROON_APP_URL` is not used by Maroon** — set that on the Varydian app only so it can link back here. See [`docs/cross-app-varydian-maroon.md`](docs/cross-app-varydian-maroon.md).
 
+   **Supabase (required for real registration)** — in `.env.local` and **Vercel project env**:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+   SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+   ```
+   Registration uses **`/api/auth/register`** on the server (service role), not browser `signUp`, so CORS from Vercel is avoided. In Supabase **Authentication → URL configuration**, set **Site URL** to your app (e.g. `https://maroontraceabilitydemo.vercel.app`) and add the same under **Redirect URLs**. If signup returns **522**, restore or unpause the project in the Supabase dashboard.
+
 4. **Database setup**
    ```bash
    # Apply database schema to your Supabase project
@@ -134,7 +142,7 @@ This repository is a **demonstration prototype** for stakeholder walkthroughs—
 
 **SAPS demo scans:** `MAROON-BLK003-VERIFIED` (green) · `MAROON-STOLEN-FLAGGED` (red)
 
-**Registration:** Forms save leads to `localStorage` key `maroon_registration_leads` and show a success panel before continuing to the dashboard.
+**Registration:** Creates real accounts in Supabase via **`POST /api/auth/register`** (server-side, service role). Requires `SUPABASE_SERVICE_ROLE_KEY` on Vercel/local. Marketing leads are optionally captured in `maroon_registration_leads` (localStorage) for follow-up only — not used for login.
 
 ## Usage
 

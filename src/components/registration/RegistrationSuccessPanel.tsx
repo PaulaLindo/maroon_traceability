@@ -30,7 +30,7 @@ export function RegistrationSuccessPanel({
       </p>
       <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mb-6">
         <Mail className="h-4 w-4" />
-        <span>Lead saved locally for demo review (browser storage)</span>
+        <span>Lead captured for follow-up (stored in this browser for demo review)</span>
       </div>
       <div className="flex flex-col sm:flex-row gap-3 justify-center">
         <Button onClick={onContinue} className="bg-blue-600 hover:bg-blue-700">

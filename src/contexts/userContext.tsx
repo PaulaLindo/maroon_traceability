@@ -8,6 +8,7 @@ import { DEMO_USERS } from '@/constants/users';
 import type { AuthAdapter, RegistrationData } from '@/core/types/adapter';
 import { MockAuthAdapter } from '@/features/auth/adapters/MockAuthAdapter';
 import { RealAuthAdapter } from '@/features/auth/adapters/RealAuthAdapter';
+import { DualAuthService } from '@/features/auth/application/DualAuthService';
 import type { User, UniversalUser, UserRole } from '@/types';
 import { toUniversalUser } from '@/types';
 
@@ -84,22 +85,24 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const login = useCallback(async (email: string, password: string): Promise<boolean> => {
     setLoading(true);
     try {
-      // Always use RealAuthAdapter for real login attempts
       const realAdapter = new RealAuthAdapter();
-      if (!realAdapter.isAvailable) {
-        console.error('Real login requires Supabase to be configured');
-        return false;
+      if (realAdapter.isAvailable) {
+        const result = await realAdapter.login(email, password);
+        if (result.success && result.data) {
+          setUser(result.data);
+          return true;
+        }
       }
-      const result = await realAdapter.login(email, password);
-      if (result.success && result.data) {
-        setUser(result.data);
+
+      const dualResult = await DualAuthService.getInstance().login(email, password);
+      if (dualResult.success && dualResult.data) {
+        setUser(dualResult.data);
         return true;
-      } else {
-        console.warn('Real login failed - user may not exist in Supabase or credentials are incorrect');
-        return false;
       }
+
+      return false;
     } catch (error) {
-      console.error('Real login failed:', error);
+      console.error('Login failed:', error);
       return false;
     } finally {
       setLoading(false);
@@ -122,43 +125,45 @@ export function UserProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     try {
       console.log('Starting registration process for:', data.email);
-      
-      // Use SupabaseRegistrationAdapter for registration (real users only)
-      const { SupabaseRegistrationAdapter } = await import('@/src/features/registration/adapters/SupabaseRegistrationAdapter');
-      const registrationAdapter = new SupabaseRegistrationAdapter();
-      
-      if (!registrationAdapter.isAvailable) {
-        throw new Error('Registration requires Supabase to be configured');
-      }
-      
-      console.log('Registration adapter available, proceeding with user creation');
-      const result = await registrationAdapter.createUser(data);
-      
-      console.log('Registration result:', result);
-      
-      if (result.success && result.data) {
-        // Convert AuthUser to UniversalUser for consistency
-        const { toUniversalUser } = await import('@/types/types');
-        const universalUser = toUniversalUser(result.data, 'api', {
-          adapterId: 'supabase-registration',
-          version: '1.0.0',
-          latency: 0,
-          retryCount: 0,
-        });
-        
-        if (universalUser) {
-          console.log('Successfully created and normalized user:', universalUser.email);
-          // Automatically log the user in after successful registration
-          setUser(universalUser);
-          return true;
-        } else {
-          console.error('Failed to normalize user after registration');
-          return false;
-        }
-      } else {
-        console.error('Registration failed:', result.error);
+
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const result = (await response.json()) as {
+        success: boolean;
+        data?: Record<string, unknown>;
+        error?: string;
+      };
+
+      if (!response.ok || !result.success || !result.data) {
+        console.error('Registration failed:', result.error ?? response.statusText);
         return false;
       }
+
+      const realAdapter = new RealAuthAdapter();
+      if (realAdapter.isAvailable) {
+        const loginResult = await realAdapter.login(data.email, data.password);
+        if (loginResult.success && loginResult.data) {
+          setUser(loginResult.data);
+          return true;
+        }
+      }
+
+      const universalUser = toUniversalUser(result.data, 'api', {
+        adapterId: 'supabase-registration-server',
+        version: '1.0.0',
+      });
+
+      if (!universalUser) {
+        console.error('Failed to normalize user after registration');
+        return false;
+      }
+
+      setUser(universalUser);
+      return true;
     } catch (error) {
       console.error('Registration failed:', error);
       return false;
