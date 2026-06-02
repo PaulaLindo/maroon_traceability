@@ -108,7 +108,7 @@ export default function GetStartedPage() {
       icon: Users,
       title: 'Livestock RFID Logs',
       description: 'Per individual animal record',
-      price: 'R2.50',
+      price: 'R11.00',
     },
     {
       icon: Database,
@@ -303,7 +303,7 @@ export default function GetStartedPage() {
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Why the Industry Trusts TACTPAM
+              Why the Industry Trusts Maroon
             </h2>
           </div>
 

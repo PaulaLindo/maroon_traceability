@@ -242,7 +242,7 @@ export default function ContactSalesPage() {
               <div className="space-y-3">
                 <div className="flex items-center">
                   <Mail className="h-5 w-5 text-blue-600 mr-3" />
-                  <span className="text-sm text-gray-700">sales@tactpam.co.za</span>
+                  <span className="text-sm text-gray-700">support@maroontraceability.co.za</span>
                 </div>
                 <div className="flex items-center">
                   <Phone className="h-5 w-5 text-blue-600 mr-3" />

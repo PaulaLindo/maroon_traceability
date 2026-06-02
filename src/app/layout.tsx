@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { ServiceWorkerRegistration } from '@/components/service-worker-registration';
-import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import ClientLayout from './clientLayout';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -29,10 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ClientLayout>
-          {children}
-          <ThemeToggle />
-        </ClientLayout>
+        <ClientLayout>{children}</ClientLayout>
         <ServiceWorkerRegistration />
       </body>
     </html>
