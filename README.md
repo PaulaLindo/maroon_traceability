@@ -57,8 +57,8 @@ Maroon Traceability is a comprehensive supply chain transparency platform that e
 
 ### Prerequisites
 
-- **Node.js** 18.0+ 
-- **npm** 9.0+ or **yarn** 1.22+
+- **Node.js** 20.x (see `.nvmrc` and `engines` in `package.json`)
+- **npm** 9.0+
 - **Git** for version control
 
 ### Installation
@@ -303,29 +303,9 @@ The platform supports dynamic feature toggling:
 
 ## Contributing
 
-We welcome contributions to the Maroon Traceability platform! Please follow our guidelines:
+See **[CONTRIBUTING.md](CONTRIBUTING.md)** for branch naming, local quality gates, and PR requirements. Security reporting is covered in **[SECURITY.md](SECURITY.md)**.
 
-### Development Workflow
-
-1. **Fork the repository**
-2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
-3. **Commit your changes**: `git commit -m 'Add amazing feature'`
-4. **Push to the branch**: `git push origin feature/amazing-feature`
-5. **Open a Pull Request**
-
-### Code Standards
-
-- **TypeScript**: Strict mode with comprehensive type validation
-- **ESLint**: Follow established linting rules
-- **Testing**: Include tests for new features
-- **Documentation**: Update documentation for API changes
-
-### Pull Request Process
-
-1. **Code Review**: All PRs require review
-2. **Tests**: Ensure all tests pass
-3. **Documentation**: Update relevant documentation
-4. **Merge**: Merge after approval and checks pass
+Deployment targets (GitHub Pages vs Vercel) are documented in **[docs/setup/deployment.md](docs/setup/deployment.md)**.
 
 ## License
 

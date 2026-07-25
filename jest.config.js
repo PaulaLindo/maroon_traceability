@@ -44,5 +44,5 @@ export default {
     },
   ],
   testTimeout: 10000,
-  passWithNoTests: true,
+  passWithNoTests: process.env.CI !== 'true',
 }

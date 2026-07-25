@@ -3,7 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=20.0.0 <21",
+    "npm": ">=9.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": "eslint --fix --max-warnings=0 --no-warn-ignored"
+  },
   "scripts": {
+    "prepare": "husky",
     "dev": "cross-env TURBOPACK=0 NODE_ENV=development next dev",
     "build": "cross-env TURBOPACK=0 next build",
     "build:export": "cross-env TURBOPACK=0 next build",

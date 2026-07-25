@@ -1,0 +1,21 @@
+# Default owners for review
+* @lungelomyamya-rgb
+
+# Authentication and authorization
+/src/features/auth/ @lungelomyamya-rgb
+/src/app/api/auth/ @lungelomyamya-rgb
+/src/lib/server/ @lungelomyamya-rgb
+
+# API routes and debug endpoints
+/src/app/api/ @lungelomyamya-rgb
+
+# Database migrations
+/database/ @lungelomyamya-rgb
+
+# CI/CD and repository guardrails
+/.github/ @lungelomyamya-rgb
+/.husky/ @lungelomyamya-rgb
+
+# Security and environment templates
+/.env.example @lungelomyamya-rgb
+/SECURITY.md @lungelomyamya-rgb
