@@ -76,11 +76,11 @@ if (!existsSync(ENV_LOCAL_PATH)) {
     
     // Ensure proper Supabase configuration
     if (!fixedEnv.includes('NEXT_PUBLIC_SUPABASE_URL=')) {
-      fixedEnv += '\nNEXT_PUBLIC_SUPABASE_URL="https://lzgglzgdgkgrxzbjevzy.supabase.co"';
+      fixedEnv += '\nNEXT_PUBLIC_SUPABASE_URL="https://YOUR_PROJECT.supabase.co"';
     }
     
     if (!fixedEnv.includes('NEXT_PUBLIC_SUPABASE_ANON_KEY=')) {
-      fixedEnv += '\nNEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6Z2dsemdkZ2tncnh6Ympldnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAyMDk5NTksImV4cCI6MjA4NTc4NTk1OX0.xHvSfID9wtq0FVC4clLH8TmheJE-jPtfKIq2qXfmDFk"';
+      fixedEnv += '\nNEXT_PUBLIC_SUPABASE_ANON_KEY="[YOUR-SECRET-KEY]"';
     }
     
     writeFileSync(ENV_LOCAL_PATH, fixedEnv);

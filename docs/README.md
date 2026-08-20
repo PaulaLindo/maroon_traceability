@@ -7,21 +7,21 @@ This directory contains comprehensive documentation for the Maroon Traceability 
 ## 🗂️ Documentation Structure
 
 ### 📖 Core Documentation
-- **[DEVELOPMENT_GUIDE.md](../DEVELOPMENT_GUIDE.md)** - Complete development guide
+- **[CONTRIBUTING.md](../CONTRIBUTING.md)** - Development workflow and quality gates
+- **[SECURITY.md](../SECURITY.md)** - Security policy and secret handling
 - **[REPOSITORY_AUDIT_REPORT.md](../REPOSITORY_AUDIT_REPORT.md)** - Repository audit and optimization
 - **[API Reference](./api/)** - API documentation
 - **[Architecture](./architecture/)** - System architecture documentation
+- **[Test Layout Policy](./architecture/test-layout.md)** - Where to place unit vs integration tests
 
 ### 🏗️ Architecture & Design
 - **[Design System](./design-system.md)** - UI/UX design system
 - **[Enhanced User Type System](./EnhancedUserTypeSystem.md)** - User type architecture
 - **[Registration System](./registration-system.md)** - Registration flow documentation
 
-### 📋 Completed Tasks (Archive)
-- **[ARCHIVE/](./ARCHIVE/)** - Completed tasks and historical documentation
-
 ### ⚙️ Setup & Deployment
 - **[Setup Guides](./setup/)** - Installation and setup instructions
+- **[Deployment Strategy](./setup/deployment.md)** - GitHub Pages vs Vercel targets
 
 ### 🧩 Component Documentation
 - **[Components](./components/)** - UI component documentation
@@ -53,17 +53,17 @@ This directory contains comprehensive documentation for the Maroon Traceability 
 
 ### In Progress
 - [ ] Component Reference - Unified component documentation
-- [ ] Deployment Guide - Production deployment procedures
-- [ ] Security Documentation - Security guidelines
 
-### Recently Completed (2026-04-22)
+### Recently Completed
 - [x] Repository Cleanup & Reorganization - Complete audit and cleanup
 - [x] Build Artifact Removal - tsconfig.tsbuildinfo cleanup
 - [x] Documentation Consolidation - Unified documentation structure
-- [x] Production Readiness Assessment - 98% completion achieved
 - [x] Feature-Based Architecture - Migration to src/features/ structure
 - [x] Route Organization - Next.js route groups implementation
 - [x] Hooks Organization - Categorized hooks by functionality
+- [x] CONTRIBUTING, SECURITY, LICENSE - Contributor and security surfaces
+- [x] Deployment runbook - GitHub Pages vs Vercel strategy documented
+- [x] CI guardrails - lint, type-check, test, build pipeline
 
 ### Archived
 - [x] Legacy Files - Migration scripts and temporary files removed
@@ -75,7 +75,7 @@ This directory contains comprehensive documentation for the Maroon Traceability 
 1. Determine the appropriate category
 2. Create or update the relevant file
 3. Update this README.md with changes
-4. Archive completed tasks to ARCHIVE folder
+4. Update the deployment or security docs when changing env or CI behavior
 
 ### Documentation Standards
 - Use clear, descriptive headings
@@ -87,7 +87,7 @@ This directory contains comprehensive documentation for the Maroon Traceability 
 
 For documentation issues:
 1. Check existing documentation first
-2. Review the Development Guide
+2. Review [CONTRIBUTING.md](../CONTRIBUTING.md)
 3. Check the Repository Audit Report
 4. Create issues for missing or unclear documentation
 

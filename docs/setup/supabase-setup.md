@@ -36,8 +36,8 @@ Create a `.env.local` file in your project root:
 ```bash
 # Supabase Configuration
 NEXT_PUBLIC_SUPABASE_URL="your-project-url"
-NEXT_PUBLIC_SUPABASE_ANON_KEY="your-anon-key"
-SUPABASE_SERVICE_ROLE_KEY="your-service-role-key"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="your-publishable-key"
+SUPABASE_SERVICE_ROLE_KEY="your-secret-key"
 ```
 
 Replace the values with your actual Supabase credentials.

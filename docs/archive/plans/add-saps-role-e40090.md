@@ -1,3 +1,9 @@
+---
+status: completed
+archived: 2026-08-19
+outcome: SAPS role and /saps/* routes implemented; see README demo accounts
+---
+
 # Add SAPS Role for Roadside Inspections and Asset Recovery
 
 ## Overview

@@ -5,6 +5,12 @@ import { getCurrentUserFromRequest } from '@/lib/auth';
 // API routes will work on Vercel serverless functions
 
 export async function GET(request: NextRequest) {
+  if (process.env.NODE_ENV !== 'development') {
+    return NextResponse.json({
+      error: 'Not found'},
+      { status: 404 }
+    );
+  }
   try {
     console.log('Debug auth endpoint called');
     
