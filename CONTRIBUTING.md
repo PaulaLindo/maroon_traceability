@@ -4,7 +4,7 @@ Thank you for contributing. This document defines the workflow and quality gates
 
 ## Prerequisites
 
-- **Node.js** 20.x (see `engines` in `package.json`)
+- **Node.js** 24.x (see `engines` in `package.json`)
 - **npm** 9+
 - Git with Husky hooks installed (`npm install` runs the `prepare` script automatically)
 

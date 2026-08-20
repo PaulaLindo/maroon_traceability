@@ -57,7 +57,7 @@ Maroon Traceability is a comprehensive supply chain transparency platform that e
 
 ### Prerequisites
 
-- **Node.js** 20.x (see `.nvmrc` and `engines` in `package.json`)
+- **Node.js** 24.x (see `.nvmrc` and `engines` in `package.json`)
 - **npm** 9.0+
 - **Git** for version control
 
