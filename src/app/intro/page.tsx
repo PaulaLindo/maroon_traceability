@@ -24,19 +24,17 @@ export default function IntroPage() {
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 pb-8 sm:pb-16">
           <div className="text-center px-2 sm:px-4 lg:px-8">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 sm:mb-4 lg:mb-6">
-              Your Herd Is Your Legacy. Keep it Secured.
+              From batch to customer. Every unit traced.
             </h1>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-4 sm:mb-6 lg:mb-8 max-w-4xl mx-auto leading-relaxed px-1 sm:px-2">
-              Your agricultral asset are so much more than just animals.
-              They represent your savings, your family's future, and your legacy.
-              Maroon is here to help you safeguard them and market them with confidence.
+              YONGA Pty Ltd can monitor quantities sold, profit per sale, and stock dates (production, expiry, dispatch) with batch and lot traceability.
             </p>
 
             {/* Hero Image */}
             <div className="mb-4 sm:mb-6 lg:mb-8 flex justify-center px-1 sm:px-2">
               <img
                 src={getAssetPath(`/images/heroImage.png?v=${CACHE_BUST}`)}
-                alt="Maroon - Agricultural Asset Protection"
+                alt="Yonga production and batch traceability."
                 className="w-full max-w-2xl sm:max-w-3xl md:max-w-4xl lg:max-w-5xl h-auto object-cover rounded-lg shadow-lg"
               />
             </div>
@@ -44,16 +42,16 @@ export default function IntroPage() {
               <Button
                 size="lg"
                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 text-sm sm:text-base lg:text-lg font-semibold"
-                onClick={() => router.push('/get-started')}
+                onClick={() => router.push('/login')}
               >
-                Start Your Digital Kraal! - Free
+                Enter the demo
                 <ArrowRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 className="border-blue-600 text-blue-600 hover:bg-blue-50 px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 text-sm sm:text-base lg:text-lg"
-                onClick={() => router.push('/auth/login')}
+                onClick={() => router.push('/login')}
               >
                 Login
               </Button>

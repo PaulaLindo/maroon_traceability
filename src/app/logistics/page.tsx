@@ -51,7 +51,7 @@ export default function LogisticsPage() {
         <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-4 sm:p-8 text-white relative">
           <div className="text-center pt-8 sm:pt-0">
             <h1 className="text-2xl sm:text-3xl font-bold mb-2">Logistics Management</h1>
-            <p className="text-blue-100 mb-4 sm:mb-6 text-sm sm:text-base">Complete transport and fleet management for Maroon Traceability System</p>
+            <p className="text-blue-100 mb-4 sm:mb-6 text-sm sm:text-base">Complete transport and fleet management for Yonga</p>
             <div className="flex justify-center items-center gap-3 sm:gap-6 mb-4 sm:mb-8 flex-wrap">
               <div className="flex items-center gap-2">
                 <Truck className="h-4 w-4 sm:h-5 sm:w-5" />

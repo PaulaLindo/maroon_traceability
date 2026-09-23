@@ -11,8 +11,8 @@ const inter = Inter({ subsets: ['latin'] });
 const basePath = process.env.NODE_ENV === 'development' ? '' : (process.env.NEXT_PUBLIC_BASE_PATH || '');
 
 export const metadata: Metadata = {
-  title: 'Maroon Traceability System',
-  description: 'Blockchain-based product traceability system',
+  title: 'Yonga Traceability',
+  description: 'Production stock and batch traceability for YONGA Pty Ltd',
   manifest: `${basePath}/manifest.json?v=` + Date.now(),
   icons: {
     icon: `${basePath}/icon-192.svg`,

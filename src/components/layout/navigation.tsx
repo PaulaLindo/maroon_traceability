@@ -72,7 +72,7 @@ export function Navigation() {
   // Choose navigation based on user role using the permissions service
   const userRole = currentUser?.role === 'public' ? 'viewer' as UserRole :
                    currentUser?.role as UserRole | null;
-  
+
   const getIconComponent = (iconName?: string) => {
     switch (iconName) {
       case 'user':
@@ -91,7 +91,7 @@ export function Navigation() {
     }))
     : getDefaultNavigationItems();
 
-  
+
   return (
     <nav className="bg-white shadow-sm border-b fixed top-0 left-0 right-0 z-50" style={{ width: '100vw', boxSizing: 'border-box' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -101,7 +101,7 @@ export function Navigation() {
             <img src={getAssetPath('images/maroonLogo.png')} alt="MAROON" className="h-6 w-6 sm:h-8 sm:w-8 mr-3 nav-logo transition-all duration-200 hover:scale-105" />
             <div className="hidden sm:block">
               <Link href={currentUser?.role === 'public' ? '/marketplace' : `/${currentUser?.role || 'public'}`} className="text-xl font-bold text-gray-900">
-                Maroon Blockchain
+                Yonga
               </Link>
               {currentUser?.role === 'farmer' && (
                 <div className="text-sm text-green-600 font-medium">Farmer Portal</div>
@@ -128,7 +128,7 @@ export function Navigation() {
             {/* Mobile Title - Logo only */}
             <div className="sm:hidden">
               <Link href={currentUser?.role === 'public' ? '/marketplace' : `/${currentUser?.role || 'marketplace'}`} className="text-lg font-bold text-gray-900">
-                Maroon
+                Yonga
               </Link>
             </div>
           </div>
@@ -161,10 +161,10 @@ export function Navigation() {
                 onClick={() => {
                   logout().then(() => {
                     // Check if user was using demo mode
-                    const isDemoUser = currentUser && '_source' in currentUser && 
-                                     (currentUser as any)._source?.type === 'mock' || 
-                                     DEMO_USERS.some(u => u.id === currentUser?.id);
-                    
+                    const isDemoUser = Boolean(
+                      currentUser && DEMO_USERS.some((demoUser) => demoUser.id === currentUser.id),
+                    );
+
                     if (isDemoUser) {
                       // For demo users, redirect to demo login page
                       router.push('/login');
@@ -216,10 +216,10 @@ export function Navigation() {
                         onClick={() => {
                           logout().then(() => {
                             // Check if user was using demo mode
-                            const isDemoUser = currentUser && '_source' in currentUser && 
-                                             (currentUser as any)._source?.type === 'mock' || 
-                                             DEMO_USERS.some(u => u.id === currentUser?.id);
-                            
+                            const isDemoUser = Boolean(
+                              currentUser && DEMO_USERS.some((demoUser) => demoUser.id === currentUser.id),
+                            );
+
                             if (isDemoUser) {
                               // For demo users, redirect to demo login page
                               router.push('/login');

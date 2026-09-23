@@ -52,7 +52,7 @@ export default function PackagingPage() {
           <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-2xl p-4 sm:p-6 md:p-8 text-white relative overflow-hidden">
             <div className="text-center relative z-10">
               <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-4">Packaging Management</h1>
-              <p className="text-emerald-100 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base">Complete packaging operations and batch management for Maroon Traceability System</p>
+              <p className="text-emerald-100 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base">Complete packaging operations and batch management for Yonga</p>
               <div className="flex justify-center items-center gap-2 sm:gap-4 md:gap-6 mb-4 sm:mb-6 md:mb-8 flex-wrap">
                 <div className="flex items-center gap-1 sm:gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2">
                   <Package className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-6" />

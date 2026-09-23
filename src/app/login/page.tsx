@@ -76,14 +76,14 @@ export default function LoginPage() {
           <div className="flex justify-center items-center mb-4 sm:mb-6">
             <img src={getAssetPath('images/maroonLogo.png')} alt="MAROON" className="h-10 sm:h-12 lg:h-16 w-10 sm:w-12 lg:w-16 mr-2 sm:mr-4" />
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
-              Maroon Traceability
+              Yonga
             </h1>
           </div>
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 font-medium">
             Select your role to access the system
           </p>
           <p className="text-xs sm:text-sm text-gray-500 mt-1 sm:mt-2">
-            Blockchain-powered supply chain transparency
+            Select a role to walk through goods-in, production, and dispatch.
           </p>
         </div>
 
@@ -95,13 +95,11 @@ export default function LoginPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
           {Object.entries({
-            farmer: 'Manage your farm and track your products from seed to harvest',
-            inspector: 'Inspect and verify product quality with detailed assessments',
-            logistics: 'Track and manage product shipments and delivery logistics',
-            packaging: 'Handle product packaging, processing, and batch management',
-            retailer: 'Sell products on marketplace and manage your e-commerce store',
-            saps: 'SAPS operations workspace (inspections, recovery, reports). No billing tier. SAPS-specific QR features will ship later, separate from Public Access.',
-            public: 'Browse marketplace and view complete product traceability',
+            farmer: 'Supplier / goods-in',
+            inspector: 'QA release and batch checks',
+            logistics: 'Dispatch and one-step-forward trace',
+            packaging: 'Production batches, QR, and yield',
+            retailer: 'Sales, margin, and customer dispatch',
           }).map(([role, description]) => (
             <div
               key={role}
@@ -153,7 +151,7 @@ export default function LoginPage() {
         <div className="mt-8 sm:mt-10 lg:mt-12 text-center">
           <div className="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full">
             <span className="text-xs sm:text-sm text-blue-700 font-medium">
-              🔒 Demo Mode — Government access is for registered accounts only. Select a demo role to explore.
+              🔒 Demo Mode — pick a role to walk through the Yonga plant.
             </span>
           </div>
         </div>

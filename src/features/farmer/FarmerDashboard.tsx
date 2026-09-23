@@ -64,7 +64,7 @@ export function FarmerDashboard() {
       <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-4 sm:p-8 text-white relative">
         <div className="text-center">
           <h1 className="text-2xl sm:text-3xl font-bold mb-2">Farm Management</h1>
-          <p className="text-green-100 mb-4 sm:mb-6 text-sm sm:text-base">Complete agricultural operations management for Maroon Traceability System</p>
+          <p className="text-green-100 mb-4 sm:mb-6 text-sm sm:text-base">Complete agricultural operations management for Yonga</p>
           <div className="flex justify-center items-center gap-3 sm:gap-6 mb-4 sm:mb-8 flex-wrap">
             <div className="flex items-center gap-2">
               <Sprout className="h-4 w-4 sm:h-5 sm:w-5" />
