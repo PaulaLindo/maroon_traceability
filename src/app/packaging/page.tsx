@@ -5,6 +5,7 @@ import { Package, QrCode, BarChart3, Box, CheckCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { DashboardLayoutUnified as DashboardLayout } from '@/components/dashboard/DashboardLayout';
+import { Button } from '@/components/ui';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { useUser } from '@/contexts/userContext';
@@ -80,6 +81,16 @@ export default function PackagingPage() {
 
           {/* Quick Actions */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+            <Button
+              onClick={() => router.push('/packaging/plant/grn')}
+              className="bg-amber-600 hover:bg-amber-700 text-white flex items-center gap-2 sm:gap-3 h-auto p-3 sm:p-4 rounded-lg font-medium transition-all hover:scale-105 active:scale-95 shadow-lg"
+              >
+                <Package className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+                <div className="text-left flex-1 min-w-0">
+                  <div className="font-medium text-sm sm:text-base">Plant</div>
+                  <div className="text-xs opacity-90">GRN → batch → dispatch</div>
+                </div>
+            </Button>
             <button
               onClick={() => router.push('/packaging/batch')}
               className="bg-emerald-600 hover:bg-emerald-700 text-white flex items-center gap-2 sm:gap-3 h-auto p-3 sm:p-4 rounded-lg font-medium transition-all hover:scale-105 active:scale-95 shadow-lg"
